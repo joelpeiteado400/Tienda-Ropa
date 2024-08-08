@@ -9,11 +9,25 @@ const Login = () =>{
 
     const handdleLogin = (e)  =>{
         e.preventDefault();
-        console.log({
-            email: email,
-            password: password
+        const data = {
+            email:email,
+            password:password,
+            
+        }
+        fetch('http://localhost:3000/login',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(data)
+        })
+         .then(response => response.json())
+         .then(result => {
+            console.log(result)
+         })
+         .catch(error => console.log(error))
 
-        });
+        
     }
 
     const handleEmailChange = (e) => {

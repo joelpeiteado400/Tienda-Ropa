@@ -5,11 +5,12 @@ import { faBars, faMagnifyingGlass, faCartShopping,faX } from "@fortawesome/free
 import { Link } from "react-router-dom";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import PillTabs from "./MenuPlegable";
+import { useAuth } from "./context/AuthContext";
 
 
 const HeaderP = () => {
   const [menuAbierto, setMenuAbierto] = useState(false);
-
+  const {loginSuccessful}=useAuth();
   const alternarMenu = () => {
     setMenuAbierto(!menuAbierto);
   };
@@ -30,11 +31,17 @@ const HeaderP = () => {
         </a>
       </Link>
       
-      <Link to="/login">
-       <button>
-          <FontAwesomeIcon icon={faUser} className="text-4xl" />
-       </button>
-      </Link>
+      {loginSuccessful ? (
+                <button>
+                    <h1>holaaaaa</h1>
+                </button>
+            ) : (
+                <Link to="/login">
+                    <button>
+                        <FontAwesomeIcon icon={faUser} className="text-4xl" />
+                    </button>
+                </Link>
+            )}
       <button>
         <FontAwesomeIcon icon={faCartShopping} className="text-4xl" />
       </button>
@@ -43,7 +50,10 @@ const HeaderP = () => {
             <div className="bg-[#F0F0F0] flex justify-between items-center h-auto w-full pt-2 pb-2 pr-2 pl-2">
              
               <div className=" font-extralight text-base">
+
               <FontAwesomeIcon icon={faUser} className="text-1xl mr-2" />
+
+
               <a className="underline mr-2 " href="#ianiciar">iniciar sesion</a>
                 o  
               <a className="ml-2 underline" href="#crear">crear cuenta</a>

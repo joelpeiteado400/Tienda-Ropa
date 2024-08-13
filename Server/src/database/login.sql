@@ -1,13 +1,14 @@
 create database tiendaRopa;
 use tiendaRopa;
-create table login(
-	email varchar(50) not null,
-    password varchar(50) not null,
-    primary key(email,password)
-);
+CREATE TABLE `login` (
+  email varchar(50) NOT NULL,
+  password varchar(50) NOT NULL,
+  nombr eUsuario varchar(10) NOT NULL,
+  PRIMARY KEY (`email`)
+)
 
-INSERT INTO login(email,password) VALUES
- ('peiteadojoel1@gmail.com','clave1'),
- ('peiteadojoel2@gmail.com','clave2'),
- ('peiteadojoel3@gmail.com','clave3')
+
+
+INSERT INTO `login` VALUES ('peiteadojoel@gmail.com','clave1','cucho');
+
  

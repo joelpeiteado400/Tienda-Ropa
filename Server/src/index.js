@@ -4,6 +4,7 @@ const app = express();
 const port = 3000;
 const cors = require('cors');
 
+
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
@@ -14,7 +15,7 @@ app.use(cors({
     methods:["GET","POST"],
 }));
 
-app.use('/', routes);
+app.use('/api', routes);
 
 
 app.listen(port, () => {

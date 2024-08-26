@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null);
     const [email, setEmail] = useState(null); // Agrega estado para email
     const [nombreUsuario, setNombreusuario] = useState(null)
+    const [rol, setRol] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,16 +16,17 @@ export const AuthProvider = ({ children }) => {
         if (storedToken) {
             try {
                 const decodedToken = parseJwt(storedToken);
-                console.log("Decoded Token:", decodedToken);
+                
     
                 const expirationTime = decodedToken.exp * 1000 - Date.now();
-                console.log("Expiration Time (ms):", expirationTime);
+                
     
                 if (expirationTime > 0) {
                     setLoginSuccessful(true);
                     setToken(storedToken);
                     setEmail(decodedToken.email); // Establece el email del token
                     setNombreusuario(decodedToken.nombreUsuario);
+                    setRol(decodedToken.rol);
                     const timer = startTokenExpirationTimer(expirationTime);
                     return () => clearTimeout(timer); // Limpiar el temporizador al desmontar
                 } else {
@@ -46,6 +48,7 @@ export const AuthProvider = ({ children }) => {
             setToken(null);
             setEmail(null); // Limpia el email al hacer logout
             setNombreusuario(null);
+            setRol(null);
             navigate('/login');
             window.location.reload();
         }, expirationTime);
@@ -57,11 +60,12 @@ export const AuthProvider = ({ children }) => {
         setToken(null);
         setEmail(null); // Limpia el email al hacer logout
         setNombreusuario(null);
+        setRol(null);
         navigate('/login');
     };
 
     return (
-        <AuthContext.Provider value={{ loginSuccessful, setLoginSuccessful, token, setToken, email,nombreUsuario, logOut }}>
+        <AuthContext.Provider value={{ loginSuccessful, setLoginSuccessful, token, setToken, email,nombreUsuario,rol, logOut }}>
             {children}
         </AuthContext.Provider>
     );

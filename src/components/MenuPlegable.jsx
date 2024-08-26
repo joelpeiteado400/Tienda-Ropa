@@ -8,6 +8,7 @@ const pillTabs = {
   productos: "Productos",
   ofertas: "Ofertas",
   contacto: "Contacto",
+  
 };
 
 const PillTabs = () => {

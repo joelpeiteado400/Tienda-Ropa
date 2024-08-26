@@ -6,6 +6,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [loginSuccessful, setLoginSuccessful] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const { setToken } = useAuth();
     const navigate = useNavigate();
 
@@ -34,9 +35,11 @@ const Login = () => {
                     
                 } else {
                     setLoginSuccessful(false);
+                    setErrorMessage('Correo o contraseña incorrectos.');
                 }
             })
             .catch(error => console.log(error));
+            setErrorMessage('Error en la conexión. Inténtalo de nuevo.');
     };
 
     return (
@@ -66,6 +69,11 @@ const Login = () => {
                                     value={password}
                                 />
                             </div>
+                            {errorMessage && (
+                                <div className="w-[80%] mb-4 text-red-600 text-center font-semibold">
+                                    {errorMessage}
+                                </div>
+                            )}
                         </div>
                         <div className="flex justify-center">
                             <button onClick={handleLogin} className="rounded-full w-[50vh] h-12 ml-20 mr-20 p-2 mt-4 text-white bg-blue-500 font-semibold">Iniciar sesión</button>

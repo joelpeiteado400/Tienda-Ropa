@@ -5,7 +5,7 @@ module.exports.login = (req, res) => {
     console.log("Request received with email:", req.body.email);
   
     const { email, password } = req.body;
-    const consult = 'SELECT email, password, nombreUsuario FROM login WHERE email = ? AND password = ?';
+    const consult = 'SELECT email, password, nombreUsuario, rol FROM login WHERE email = ? AND password = ?';
   
     connection.query(consult, [email, password], (err, result) => {
       if (err) {
@@ -19,7 +19,7 @@ module.exports.login = (req, res) => {
       if (result.length > 0) {
         console.log('Usuario autenticado');
         const usuario = result[0];
-        const token = jwt.sign({ email: usuario.email, nombreUsuario: usuario.nombreUsuario }, "Stack", { expiresIn: '10s' });
+        const token = jwt.sign({ email: usuario.email, nombreUsuario: usuario.nombreUsuario, rol: usuario.rol }, "Stack", { expiresIn: '10m' });
         return res.json({ token });
       } else {
         console.log('Usuario incorrecto');
